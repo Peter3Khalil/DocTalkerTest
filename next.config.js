@@ -1,8 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    domains: ["upload.wikimedia.org", "flagcdn.com"],
+const path = require('path')
+ 
+module.exports = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
-};
-
-module.exports = nextConfig;
+}

@@ -1,7 +1,7 @@
-import Link from "next/link";
-import React from "react";
-import { AiOutlineMenu } from "react-icons/ai";
-import Image from "next/image";
+import Link from 'next/link';
+import React from 'react';
+import {AiOutlineMenu} from 'react-icons/ai';
+import Image from 'next/image';
 
 const Navbar = () => {
   return (
@@ -15,20 +15,18 @@ const Navbar = () => {
     bg-white
     px-4
     shadow-sm
-    `}
-    >
-      <Link href={"/"} className="">
+    `}>
+      <Link href={'/'} className=''>
         <Image
-          src="/assets/DocTalker.svg"
+          src='/assets/DocTalker.svg'
           width={100}
           height={100}
-          alt="logo"
-          className="h-32 w-32"
-        ></Image>
+          alt='logo'
+          className='h-32 w-32'></Image>
       </Link>
 
       {/* TODO: Handle open/close Menu */}
-      <AiOutlineMenu className="cursor-pointer text-2xl text-black" />
+      <AiOutlineMenu className='cursor-pointer text-2xl text-black' />
     </nav>
   );
 };
