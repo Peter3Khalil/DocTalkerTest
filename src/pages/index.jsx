@@ -19,9 +19,9 @@ const Home = () => {
   }, []);
   return (
     <div className="w-full h-screen flex relative">
-      <div className={clsx("w-full md:w-fit h-full absolute left-0 top-0 z-10 flex",!isOpen?"hidden":"md:flex md:relative")}>
+      <div className={clsx("w-full border md:w-fit h-full absolute left-0 top-0 z-10 flex",!isOpen?"hidden":"md:flex md:relative")}>
         <Sidebar />
-        <div className="w-full h-full bg-black/80 md:hidden"></div>
+        <div className="flex-1 h-full bg-black/80 md:hidden"></div>
       </div>
 
       <main className="flex-1 bg-background text-foreground flex relative ">

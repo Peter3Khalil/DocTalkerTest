@@ -7,6 +7,28 @@ import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import clsx from "clsx";
 import { setCurrentChat } from "../redux/slices/currentChatSlice";
 
+const Sidebar = () => {
+  const dispatch = useDispatch();
+  return (
+    <aside className="w-[70%] md:w-[250px] h-full flex flex-col pl-3 py-3 bg-background text-foreground">
+      <FaWindowMinimize
+        onClick={() => dispatch(close())}
+        className="self-end mb-3 mr-3 cursor-pointer"
+      />
+      <button className="w-full self-center border-2 bg-inherit mr-3 py-2 rounded-md mb-5 font-semibold hover:bg-accent">
+        +New Chat
+      </button>
+      <section className="w-full h-screen overflow-auto flex flex-col gap-2">
+        {/* print star emoji */}
+
+        <Folder name={"Chats"} />
+        <Folder name={"Star Chats"} icon={"⭐"} />
+      </section>
+      <section className="py-6">bottom</section>
+    </aside>
+  );
+};
+
 function Folder({ name, icon }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -45,7 +67,7 @@ function Item({ name, id }) {
   const dispatch = useDispatch();
   return (
     <li
-      onClick={()=>dispatch(setCurrentChat(id))}
+      onClick={() => dispatch(setCurrentChat(id))}
       className={`${
         currentChat === id
           ? "bg-primary text-primary-foreground"
@@ -57,31 +79,5 @@ function Item({ name, id }) {
     </li>
   );
 }
-const Sidebar = () => {
-  const dispatch = useDispatch();
-  return (
-    <aside className="w-[250px] h-full flex flex-col pl-3 py-3 bg-background text-foreground">
-      <FaWindowMinimize
-        onClick={() => dispatch(close())}
-        className="self-end mb-3 mr-3 cursor-pointer"
-      />
-      <button className="border-2 bg-inherit mr-3 py-2 rounded-md mb-5 font-semibold hover:bg-accent">
-        +New Chat
-      </button>
-      <section className="w-full h-screen overflow-auto flex flex-col gap-2">
-        {/* print star emoji */}
-
-        <Folder
-          name={"Chats"}
-        />
-        <Folder
-          name={"Star Chats"}
-          icon={"⭐"}
-        />
-      </section>
-      <section className="py-6">bottom</section>
-    </aside>
-  );
-};
 
 export default Sidebar;
