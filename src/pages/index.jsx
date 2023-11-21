@@ -1,77 +1,61 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import { useDispatch, useSelector } from "react-redux";
 import { close, open } from "../redux/slices/toggleSlice";
 import Sidebar from "../components/Sidebar";
 import { FiMaximize } from "react-icons/fi";
 import { useMediaQuery } from "react-responsive";
+import ChatContainer from "../components/ChatContainer";
+import PdfViewer from "../components/PdfViewer";
 
 const Home = () => {
   const isOpen = useSelector((state) => state.toggle.isOpen);
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ query: "(max-width: 640px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   useEffect(() => {
     if (isMobile) {
       dispatch(close());
     } else {
       dispatch(open());
     }
-  }, []);
-  const message =
-    "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci distinctio placeat vitae, alias illum facere repudiandae inventore dignissimos, eveniet ex aliquid eius soluta exercitationem iste, perferendis recusandae quaerat vero! Minus.";
+  }, [isMobile]);
   return (
-    <div className="w-full h-screen flex relative overflow-hidden">
+    <div className="relative flex  h-screen w-full overflow-hidden">
       <div
         className={clsx(
-          "w-full border md:w-fit h-full absolute left-0 top-0 z-10 flex",
-          !isOpen ? "hidden" : "md:flex md:relative"
+          "h-full w-full border md:w-fit",
+          !isOpen ? "hidden" : "flex",
         )}
       >
         <Sidebar />
-        <div onClick={()=>dispatch(close())} className="flex-1 h-full bg-black/80 md:hidden" ></div>
+        <div
+          onClick={() => dispatch(close())}
+          className="h-full flex-1 bg-black/80 md:hidden"
+        ></div>
       </div>
 
-      <main className="flex-1 bg-background text-foreground flex relative px-6 md:p-0">
+      <main className="relative flex w-full flex-1 flex-col bg-background px-6 text-foreground md:p-0">
+        {/* Maximize */}
         <div
           onClick={() => dispatch(open())}
           className={clsx(
-            "absolute top-3 left-3 z-30 cursor-pointer border p-1 rounded-md text-foreground",
-            isOpen ? "hidden" : ""
+            "absolute left-3 top-3 z-30 cursor-pointer rounded-md border p-1 text-foreground",
+            isOpen ? "hidden" : "",
           )}
         >
           <FiMaximize />
         </div>
+        {/* Maximize */}
 
-        <div className="w-full h-full flex gap-2 flex-row-reverse">
-          {/* PDFViewer */}
-          <div className="hidden md:flex flex-1 h-full bg-sky-100">pdf</div>
-          {/* PDFViewer */}
-
-          {/* Conversation */}
-          <div className="flex-1 h-full flex flex-col gap-3 md:m-0 overflow-auto pb-3 px-4">
-            <div className="w-full h-32 bg-slate-400 flex justify-end">
-              <div className="h-12 w-60 bg-black"></div>
-            </div>
-            <div className="w-full h-32 bg-slate-400 flex justify-start">
-              <div className="h-12 w-60 bg-black"></div>
-            </div>
-          </div>
-          {/* Conversation */}
+        <header className="h-12 w-full bg-white shadow-md fixed"></header>
+        <div className="flex h-full w-full mt-12">
+          <ChatContainer />
+          <PdfViewer />
         </div>
       </main>
     </div>
   );
 };
-function Conversation({ name = "Me", message }) {
-  return (
-    <div
-      className={clsx(
-        "max-w-[70%] w-fit flex gap-2 items-start px-3 py-2 rounded-md"
-      )}
-    >
-      <h1 className="capitalize">{name}:</h1>
-      <p className="text-sm">{message}</p>
-    </div>
-  );
-}
+
 export default Home;

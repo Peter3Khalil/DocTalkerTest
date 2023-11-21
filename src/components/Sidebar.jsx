@@ -10,28 +10,28 @@ import { setCurrentChat } from "../redux/slices/currentChatSlice";
 const Sidebar = () => {
   const dispatch = useDispatch();
   return (
-    <aside className="w-[70%] md:w-[250px] h-full flex flex-col pl-3 pt-3 bg-background text-foreground relative">
+    <aside className="relative flex h-full w-[70%] flex-col bg-background pl-3 pt-3 text-foreground md:w-[250px]">
       {/* TOP */}
-      <section className="flex flex-col gap-2 w-full items-end pr-3">
+      <section className="flex w-full flex-col items-end gap-2 pr-3">
         <FaWindowMinimize
           onClick={() => dispatch(close())}
           className="cursor-pointer"
         />
-        <button className="w-full self-center border-2 bg-inherit  py-2 rounded-md mb-5 font-semibold hover:bg-accent">
+        <button className="mb-5 w-full self-center rounded-md  border-2 bg-inherit py-2 font-semibold hover:bg-accent">
           +New Chat
         </button>
       </section>
       {/* TOP */}
 
-      <section className="w-full h-screen overflow-auto flex flex-col gap-2 mb-10 pb-12">
+      <section className="mb-10 flex h-screen w-full flex-col gap-2 overflow-auto pb-12">
         {/* print star emoji */}
 
         <Folder name={"Chats"} />
         <Folder name={"Star Chats"} icon={"⭐"} />
       </section>
-      <section className="py-4 border-t flex gap-2 items-center px-3 absolute bottom-0 w-full left-0 z-40 bg-background">
-        <div className="flex items-center cursor-pointer hover:bg-primary/10 w-full rounded-md py-1 px-3 gap-2">
-          <div className="w-8 h-8 rounded-full bg-primary"></div>
+      <section className="absolute bottom-0 left-0 z-40 flex w-full items-center gap-2 border-t bg-background px-3 py-4">
+        <div className="flex w-full cursor-pointer items-center gap-2 rounded-md px-3 py-1 hover:bg-primary/10">
+          <div className="h-8 w-8 rounded-full bg-primary"></div>
           <h1>Name</h1>
         </div>
       </section>
@@ -43,10 +43,10 @@ function Folder({ name, icon }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-2 pr-2">
+    <div className="flex w-full flex-col gap-2 pr-2">
       <h1
         onClick={() => setIsCollapsed((prev) => !prev)}
-        className="text-lg bg-background z-20 flex items-center font-semibold sticky top-0 border-b cursor-pointer"
+        className="sticky top-0 z-20 flex cursor-pointer items-center border-b bg-background text-lg font-semibold"
       >
         {isCollapsed ? (
           <MdOutlineExpandLess className="rotate-90" />
@@ -87,12 +87,12 @@ function Item({ name, id }) {
         currentChat === id
           ? "bg-primary text-primary-foreground"
           : "bg-inherit text-inherit hover:bg-primary/10"
-      } flex items-center px-3 h-10 rounded-md cursor-pointer relative`}
+      } relative flex h-10 cursor-pointer items-center rounded-md px-3`}
     >
       <span className="mr-2">💬</span>
-      <p className="whitespace-nowrap overflow-hidden">{name}</p>
+      <p className="overflow-hidden whitespace-nowrap">{name}</p>
       {currentChat !== id && (
-        <span className="absolute h-full w-6 right-0 bg-gradient-to-r from-transparent to-slate-50 rounded-md"></span>
+        <span className="absolute right-0 h-full w-6 rounded-md bg-gradient-to-r from-transparent to-slate-50"></span>
       )}
     </li>
   );
