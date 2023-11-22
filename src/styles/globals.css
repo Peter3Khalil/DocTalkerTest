@@ -5,10 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 html{
     height: --webkit-fill-available;
+    font-size: 18px;
 }
 body {
     font-family: 'Nunito', sans-serif;
-    height: --webkit-fill-available;
+    height: --webkit-fill-available;;
 }
 
 * {
@@ -18,9 +19,6 @@ body {
     html{
         font-size: 16px;
     }
-}
-html{
-    font-size: 18px;
 }
 
 
@@ -95,4 +93,35 @@ html{
 ::-webkit-scrollbar-track:hover {
     background-color: #f0f0f0;
     /* Set the background color on hover */
+}
+
+.typing-effect{
+    animation: typing 1.5s steps(40, end), blink-caret .75s step-end infinite;
+    border-right: .15em solid var(--primary);
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--primary)
+    }
 }
