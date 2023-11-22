@@ -12,8 +12,12 @@ const className = {
 const Home = () => {
   const [userMessages, setUserMessages] = useState([]);
   const inputRef = React.useRef(null);
-  const [isLoaded, setIsLoaded] = useState(true);
   const isDone = useSelector((state) => state.typingDone.isDone);
+  const onSubmit = (e) => {
+    if (e.key === "Enter") {
+      handleOnclick();
+    }
+  };
 
   const handleOnclick = (e) => {
     //set user message
@@ -25,7 +29,7 @@ const Home = () => {
   };
 
   let chats = userMessages.map((message, index) => (
-    <Chat userMessage={message} key={index} setIsLoaded={setIsLoaded} />
+    <Chat userMessage={message} key={index} />
   ));
   return (
     <div className="flex h-screen w-full flex-col text-foreground">
@@ -49,6 +53,7 @@ const Home = () => {
           <input
             placeholder="Ask any question"
             ref={inputRef}
+            onKeyDown={onSubmit}
             className="h-[40px] max-h-[200px] w-full resize-none bg-transparent px-2 outline-none"
           />
           {isDone && (
@@ -63,7 +68,7 @@ const Home = () => {
     </div>
   );
 };
-function Chat({ userMessage, key, setIsLoaded }) {
+function Chat({ userMessage, key }) {
   const [botMessage, setBotMessage] = useState("");
   const ApiKey = "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";
   const endpoint = "https://api.openai.com/v1/chat/completions";
@@ -90,12 +95,10 @@ function Chat({ userMessage, key, setIsLoaded }) {
   };
 
   useEffect(() => {
-    setIsLoaded(false);
     fetch("https://jsonplaceholder.typicode.com/posts?id=1")
       .then((response) => response.json())
       .then((data) => {
         setBotMessage(data[0].title);
-        setIsLoaded(true);
       })
       .catch((error) => console.log(error));
   }, [userMessage]);
