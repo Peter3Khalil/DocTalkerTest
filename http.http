@@ -1,0 +1,18 @@
+@APIKEY = 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
+POST https://api.openai.com/v1/chat/completions
+Content-Type: application/json
+Authorization: Bearer {{APIKEY}}
+
+{
+     "model": "gpt-3.5-turbo",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Write a basic react component, To display a more readable format to the user, your answer must be formatted in HTML."
+      }
+    ]
+}

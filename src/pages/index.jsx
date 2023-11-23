@@ -1,15 +1,18 @@
 import clsx from "clsx";
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdSend, IoMdMenu } from "react-icons/io";
 import { IoEyeSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import TypeWriter from "../components/TypeWriter";
 import ChatContainer from "../components/ChatContainer";
+import { close, open } from "../redux/slices/toggleSlice";
+import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [heightOfContainer, setHeightOfContainer] = useState(0);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.toggle.isOpen);
   const inputRef = useRef(null);
   const isDone = useSelector((state) => state.typingDone.isDone);
   const [showSubmitBtn, setShowSubmitBtn] = useState(true);
@@ -43,12 +46,15 @@ const Home = () => {
   useEffect(() => {
     handleScroll();
   }, [heightOfContainer]);
+
+
   return (
     <div className="flex h-[calc(100vh-60px)] md:h-screen w-full flex-col text-foreground">
+      {isOpen&& <Sidebar />}
       {/* Top */}
       <section className="flex h-16 w-full items-center justify-between bg-background px-2 shadow-sm">
-        <IoMdMenu className="cursor-pointer bg-transparent text-2xl" />
-        <h1>New Chat</h1>
+        <IoMdMenu className="cursor-pointer bg-transparent text-2xl" onClick={()=>dispatch(open())}/>
+        <h1 className="text-lg font-bold">New Chat</h1>
         <IoEyeSharp className="cursor-pointer bg-transparent text-2xl" />
         {/* Top */}
       </section>
@@ -65,12 +71,12 @@ const Home = () => {
 
       {/* Bottom */}
       <section className="w-full px-5">
-        <div className=" mb-6 flex w-full items-center rounded-md border-2 pr-2">
+        <div className="mb-6 h-14 flex w-full items-center rounded-md border-2 pr-2">
           <input
             placeholder="Ask any question"
             ref={inputRef}
             onKeyDown={onSubmit}
-            className="h-[40px] max-h-[200px] w-full resize-none bg-transparent px-2 outline-none"
+            className="h-full w-full  bg-transparent px-2 outline-none"
           />
           {isDone && showSubmitBtn && (
             <IoMdSend
