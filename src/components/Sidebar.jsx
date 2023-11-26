@@ -9,9 +9,11 @@ import { setCurrentChat } from "../redux/slices/currentChatSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.toggle.isOpen);
+  console.log("Sidebar")
   return (
-    <div className="absolute left-0 top-0 z-10 flex h-full w-full">
-      <div className="flex h-full w-3/4 flex-col gap-3 bg-background p-2">
+    <aside className="flex h-full w-full absolute top-0 left-0 z-20 md:w-fit" style={{display:isOpen?"flex":"none"}}>
+      <div className="flex h-full w-3/4  md:w-72 flex-col gap-3 bg-background p-2">
         {/* Top */}
         <section className="flex flex-col items-end gap-2">
           <IoMdClose
@@ -52,7 +54,7 @@ const Sidebar = () => {
 
         {/* Bottom */}
         <section className="flex h-[100px] w-full items-center gap-2 border-t ">
-          <div className="flex items-center gap-2 hover:bg-primary/10 px-2 py-1 w-full rounded-md">
+          <div className="flex items-center gap-2 hover:bg-primary/10 px-2 py-1 w-full rounded-md cursor-pointer">
             <div className="relative h-8 w-8 rounded-full">
               <Image
                 src="/avatar.jpg"
@@ -67,10 +69,10 @@ const Sidebar = () => {
       </div>
 
       <div
-        className="h-full w-1/4 bg-foreground/40"
+        className="h-full w-1/4 bg-foreground/40 md:hidden"
         onClick={() => dispatch(close())}
       ></div>
-    </div>
+    </aside>
   );
 };
 function Item({ title }) {

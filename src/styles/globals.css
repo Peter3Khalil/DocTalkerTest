@@ -99,34 +99,6 @@ body {
     /* Set the background color on hover */
 }
 
-.typing-effect {
-    animation: typing 1.5s steps(40, end), blink-caret .75s step-end infinite;
-    border-right: .15em solid var(--primary);
-    width: 100%;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--primary);
-    margin-bottom: 1rem;
-}
-
-@keyframes typing {
-    from {
-        width: 0
-    }
-
-    to {
-        width: 100%
-    }
-}
-
-@keyframes blink-caret {
-
-    from,
-    to {
-        border-color: transparent
-    }
-
-    50% {
-        border-color: var(--primary)
-    }
+.focus {
+    border: 1px solid hsl(var(--primary));
 }
