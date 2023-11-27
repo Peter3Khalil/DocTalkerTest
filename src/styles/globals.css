@@ -4,20 +4,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700;800;900&display=swap');
 
+*{
+    box-sizing: border-box;
+}
+
 html {
-    height: --webkit-fill-available;
     font-size: 18px;
+    overflow: hidden;
+    width: 100%;
 }
 
 body {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     font-family: 'Source Code Pro', monospace;
-    height: --webkit-fill-available;
-    ;
 }
 
-* {
-    box-sizing: border-box;
-}
 
 @media screen and (max-width: 640px) {
     html {
@@ -103,7 +108,6 @@ body {
     border: 1px solid hsl(var(--primary));
 }
 
-pre::-webkit-scrollbar{
+pre::-webkit-scrollbar {
     display: none;
 }
-

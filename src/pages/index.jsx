@@ -5,13 +5,10 @@ import Sidebar from "../components/Sidebar";
 import Form from "../components/Form";
 const Home = () => {
   console.log("Home");
-  useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }, []);
+ 
 
   return (
-    <div className="relative flex h-[calc(var(--vh, 1vh) * 100)] w-full">
+    <div className="relative flex h-screen w-full">
       <Sidebar />
 
       <section className="flex h-full w-full flex-col md:flex-1">
