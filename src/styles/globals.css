@@ -20,7 +20,9 @@ body, #__next {
     height: 100%;
     width: 100%;
 }
-
+#textarea::-webkit-scrollbar{
+width: 0;
+}
 
 @media screen and (max-width: 640px) {
     html {
