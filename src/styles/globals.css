@@ -10,13 +10,15 @@
 
 html {
     font-size: 18px;
-    height: -webkit-fill-available;
 }
 
-body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+body, #__next {
+    height: 100svh;
     font-family: 'Source Code Pro', monospace;
+}
+#mainContainer{
+    height: 100%;
+    width: 100%;
 }
 
 

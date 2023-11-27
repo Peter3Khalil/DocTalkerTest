@@ -8,7 +8,7 @@ const Home = () => {
  
 
   return (
-    <div className="relative flex h-screen w-full">
+    <div className="relative flex h-full w-full">
       <Sidebar />
 
       <section className="flex h-full w-full flex-col md:flex-1">
