@@ -11,6 +11,7 @@ const Header = () => {
   const handleBlur = (e) => {
     console.log(e.target.innerText);
   };
+  console.log("Header");
   return (
     <header className="flex h-12 w-full flex-shrink-0 items-center justify-between bg-background shadow-sm text-foreground px-4">
       <button onClick={() =>isSidebarOpened?dispatch(close()) :dispatch(open())}>

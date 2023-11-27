@@ -6,7 +6,7 @@ const Sidebar = () => {
   const isSidebarOpened = useSelector(
     (state) => state.isSidebarOpened.isSidebarOpened,
   );
-
+    console.log("Sidebar");
   return (
     <aside
       className={`absolute left-0 top-0 transform transition-all duration-300 ease-in-out ${
