@@ -11,7 +11,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative flex h-screen w-full">
+    <div className="relative flex h-[calc(var(--vh, 1vh) * 100)] w-full">
       <Sidebar />
 
       <section className="flex h-full w-full flex-col md:flex-1">
