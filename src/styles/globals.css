@@ -10,16 +10,12 @@
 
 html {
     font-size: 18px;
-    overflow: hidden;
-    width: 100%;
+    height: -webkit-fill-available;
 }
 
 body {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     font-family: 'Source Code Pro', monospace;
 }
 
