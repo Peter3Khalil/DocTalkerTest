@@ -2,16 +2,12 @@ import clsx from "clsx";
 import React, { useEffect, useState, memo } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const ChatContainer = memo(({ userMessage, setShowSubmitBtn, key }) => {
+const ChatContainer = memo(({ userMessage, key }) => {
   console.log("ChatContainer");
   return (
-    <div className="flex w-full flex-col gap-3" key={key}>
+    <div className="flex h-full w-full flex-col gap-3" key={key}>
       <UserMessage userMessage={userMessage} />
-      <BotMessage
-        userMessage={userMessage}
-        setShowSubmitBtn={setShowSubmitBtn}
-      />
-    </div>
+      </div>
   );
 });
 
@@ -38,7 +34,7 @@ function UserMessage({ userMessage }) {
     </>
   );
 }
-function BotMessage({ userMessage, setShowSubmitBtn, setHeightOfContainer }) {
+function BotMessage({ userMessage }) {
   const [isLoading, setIsLoading] = useState(false);
   const [botMessage, setBotMessage] = useState("");
   const message =
@@ -46,11 +42,9 @@ function BotMessage({ userMessage, setShowSubmitBtn, setHeightOfContainer }) {
 
   useEffect(() => {
     setIsLoading(true);
-    setShowSubmitBtn(false);
     setTimeout(() => {
       setBotMessage(message);
       setIsLoading(false);
-      setShowSubmitBtn(true);
     }, 2000);
   }, [userMessage]);
   return (

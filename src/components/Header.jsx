@@ -1,35 +1,27 @@
-import React, { memo, use } from "react";
-import { IoMdMenu } from "react-icons/io";
-import {  IoEyeSharp } from "react-icons/io5";
-import { IoIosChatboxes } from "react-icons/io";
-import { open } from "../redux/slices/toggleSlice";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hidePdf, showPdf } from "../redux/slices/previewPdfSlice";
-
-const Header = memo(() => {
-    const dispatch = useDispatch();
-    const previewPdf = useSelector((state) => state.previewPdf.previewPdf);
-    console.log("Header");
-  return (
-    <section className="flex h-16 w-full items-center justify-between bg-background px-2 shadow-sm">
-      <IoMdMenu
-        className="cursor-pointer bg-transparent text-2xl"
-        onClick={() => dispatch(open())}
-      />
-      <h1 className="text-lg font-bold">New Chat</h1>
-      {!previewPdf ? (
-        <IoEyeSharp
-          className="cursor-pointer bg-transparent text-2xl"
-          onClick={() => dispatch(showPdf())}
-        />
-      ) : (
-        <IoIosChatboxes
-          className="cursor-pointer bg-transparent text-2xl"
-          onClick={() => dispatch(hidePdf())}
-        />
-      )}
-    </section>
+import { HiMenuAlt1 } from "react-icons/hi";
+import { MdRemoveRedEye } from "react-icons/md";
+import { close, open } from "../redux/slices/isSidebarOpened";
+const Header = () => {
+  const dispatch = useDispatch();
+  const isSidebarOpened = useSelector(
+    (state) => state.isSidebarOpened.isSidebarOpened,
   );
-});
+  const handleBlur = (e) => {
+    console.log(e.target.innerText);
+  };
+  return (
+    <header className="flex h-12 w-full flex-shrink-0 items-center justify-between bg-background shadow-sm text-foreground px-4">
+      <button onClick={() =>isSidebarOpened?dispatch(close()) :dispatch(open())}>
+        <HiMenuAlt1 className="text-2xl" />
+      </button>
+      <h1 className="text-xl font-semibold w-32 whitespace-nowrap overflow-hidden md:w-52 lg:w-[400px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis illum neque sunt sequi sint unde fugit tenetur ipsam tempora dolorem, eligendi delectus perferendis nesciunt temporibus molestiae, cum numquam, iure facere!</h1>
+      <button>
+        <MdRemoveRedEye className="text-2xl" />
+      </button>
+    </header>
+  );
+};
 
 export default Header;

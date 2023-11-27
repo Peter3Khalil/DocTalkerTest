@@ -102,3 +102,8 @@ body {
 .focus {
     border: 1px solid hsl(var(--primary));
 }
+
+pre::-webkit-scrollbar{
+    display: none;
+}
+

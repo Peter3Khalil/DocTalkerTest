@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Body from "../components/Body";
 import Sidebar from "../components/Sidebar";
+import { useDispatch } from "react-redux";
+import { open } from "../redux/slices/isSidebarOpened";
+import ChatContainer from "../components/ChatContainer";
+
+import Form from "../components/Form";
 const Home = () => {
   console.log("Home");
+  
   return (
-    <main className="flex h-[calc(100vh-60px)] w-full md:h-screen">
+    <div className="relative flex h-screen w-full">
       <Sidebar />
-      <div className="w-full h-full flex flex-col">
+
+      <section className="flex h-full w-full flex-col md:flex-1">
         <Header />
-        <Body />
-      </div>
-    </main>
+        <main className="h-full w-full overflow-auto bg-blue-600 px-4 py-2"></main>
+        <Form />
+      </section>
+    </div>
   );
 };
 
