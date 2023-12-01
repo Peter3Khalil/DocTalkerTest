@@ -1,28 +1,32 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { HiMenuAlt1 } from "react-icons/hi";
-import { MdRemoveRedEye } from "react-icons/md";
-import { close, open } from "../redux/slices/isSidebarOpened";
+import React, { useEffect, useState } from "react"
+import { CiMenuKebab } from "react-icons/ci"
 const Header = () => {
-  const dispatch = useDispatch();
-  const isSidebarOpened = useSelector(
-    (state) => state.isSidebarOpened.isSidebarOpened,
-  );
-  const handleBlur = (e) => {
-    console.log(e.target.innerText);
-  };
-  console.log("Header");
+  const [visible, setVisible] = useState(false)
+  const [scrollPos, setScrollPos] = useState(0)
+  const handleScroll = () => {
+    const position = window.scrollY
+    setScrollPos(position)
+    setVisible(scrollPos > position)
+  }
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [scrollPos])
   return (
-    <header className="flex h-12 w-full flex-shrink-0 items-center justify-between bg-background shadow-sm text-foreground px-4">
-      <button onClick={() =>isSidebarOpened?dispatch(close()) :dispatch(open())}>
-        <HiMenuAlt1 className="text-2xl" />
-      </button>
-      <h1 className="text-xl font-semibold w-32 whitespace-nowrap overflow-hidden md:w-52 lg:w-[400px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis illum neque sunt sequi sint unde fugit tenetur ipsam tempora dolorem, eligendi delectus perferendis nesciunt temporibus molestiae, cum numquam, iure facere!</h1>
-      <button>
-        <MdRemoveRedEye className="text-2xl" />
-      </button>
+    <header
+      className={`sticky top-0 z-10 flex h-16 w-full shrink-0 items-center justify-between border-b-4 bg-background px-3 transition-transform duration-300 ease-in-out ${
+        visible ? "translate-y-0" : "translate-y-[-100%]"
+      }`}
+    >
+      <h1>DocTaker</h1>
+      <div className="flex gap-3">
+        <button className="text-lg">🔍</button>
+        <button className="text-lg"><CiMenuKebab/></button>
+      </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

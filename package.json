@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.14.1",
     "@hookform/resolvers": "^3.3.2",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf/renderer": "^3.1.14",
@@ -18,6 +19,7 @@
     "clsx": "^2.0.0",
     "next": "13.4.8",
     "prismjs": "^1.29.0",
+    "pspdfkit": "^2023.5.2",
     "react": "18.2.0",
     "react-doc-viewer": "^0.1.5",
     "react-dom": "18.2.0",

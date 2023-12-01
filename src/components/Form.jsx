@@ -1,9 +1,9 @@
 import autosize from "autosize";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { BiSolidSend } from "react-icons/bi";
 import { MdClear } from "react-icons/md";
 
-const Form = () => {
+const Form = memo(() => {
   const [value, setValue] = useState("");
   const textareaRef = useRef();
 
@@ -28,8 +28,11 @@ const Form = () => {
       textareaRef.current.style.height = "50px";
   }
   console.log("Form");
+  useEffect(() => {
+   textareaRef.current.focus();
+  }, []);
   return (
-    <form className="flex w-full items-center p-4">
+    <form className="flex w-full items-center  bg-background">
       <div className="w-full flex items-center rounded-es rounded-ss border-2 inputContainer pr-2">
         <textarea
         id="textarea"
@@ -55,6 +58,6 @@ const Form = () => {
       </button>
     </form>
   );
-};
+})
 
 export default Form;

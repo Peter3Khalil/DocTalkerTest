@@ -5,7 +5,7 @@ import isSidebarOpenedReducer from './slices/isSidebarOpened';
 import currentChatReducer from './slices/currentChatSlice';
 import typingDoneReducer from './slices/typingDone';
 import isLoadingReducer from './slices/isLoading';
-import previewPdfReducer from './slices/previewPdfSlice';
+import isDocumentOpenedReducer from './slices/isDocumentOpened';
 export const store = configureStore({
   reducer: {
     isSidebarOpened: isSidebarOpenedReducer,
@@ -13,6 +13,6 @@ export const store = configureStore({
     currentChat:currentChatReducer,
     typingDone:typingDoneReducer,
     isLoading:isLoadingReducer,
-    previewPdf:previewPdfReducer
+    isDocumentOpened: isDocumentOpenedReducer,
   },
 });
