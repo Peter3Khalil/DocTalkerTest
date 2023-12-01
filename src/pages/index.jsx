@@ -6,9 +6,8 @@ import Header from "../components/Header"
 const Home = () => {
   return (
     <div className="relative flex h-full w-full flex-col bg-background text-foreground">
-      <Header/>
-      <main className="flex h-full w-full flex-col">
-        <div className="h-14 w-full shrink-0 border">Stars</div>
+      <Header />
+      <main className="h-full w-full overflow-auto">
         <Chats />
       </main>
       <button className="fixed bottom-4 right-4 text-4xl">
@@ -19,11 +18,14 @@ const Home = () => {
 }
 const Chats = ({ chats }) => {
   return (
-    <ul className="h-full w-full">
+    <div className="h-full w-full">
+      <div className="h-14 w-full shrink-0 border">Stars</div>
+      <ul className="w-full">
       {Array.from({ length: 20 }).map((item) => (
         <ChatItem />
       ))}
-    </ul>
+      </ul>
+    </div>
   )
 }
 const ChatItem = ({ chat }) => {
