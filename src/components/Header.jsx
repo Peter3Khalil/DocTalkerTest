@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { CiMenuKebab } from "react-icons/ci"
 const Header = () => {
   const [searchOpened, setSearchOpened] = useState(false)
+ 
   useEffect(() => {
     if (searchOpened) document.getElementById("search").focus()
   }, [searchOpened])
