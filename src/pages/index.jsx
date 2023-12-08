@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 const Home = () => {
   const { isDocumentOpened } = useSelector((state) => state.isDocumentOpened)
+  const url = "https://doctalker-app.s3.amazonaws.com/Lecture_2_Search.pdf3"
   return (
     <div className="flex h-full w-full flex-col overflow-hidden md:flex-row">
       <Sidebar />
@@ -17,7 +18,7 @@ const Home = () => {
 
           {/* PDF Viewer */}
           
-            <iframe src="https://doctalker-app.s3.amazonaws.com/Lecture_2_Search.pdf3" style={{display: isDocumentOpened?"block":"none" }}  className="absolute z-10 h-full w-full bg-red-200 lg:static">
+            <iframe src={`https://docs.google.com/gview?url=${url}&embedded=true`} style={{display: isDocumentOpened?"block":"none" }}  className="absolute z-10 h-full w-full bg-red-200 lg:static">
             </iframe>
          
         </div>
