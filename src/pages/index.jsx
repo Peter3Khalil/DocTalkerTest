@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 const Home = () => {
   const { isDocumentOpened } = useSelector((state) => state.isDocumentOpened)
-  const url = "https://doctalker-app.s3.amazonaws.com/Lecture_2_Search.pdf3"
+  const url = "https://doctalker-app.s3.amazonaws.com/Simple%20Gantt%20chart1.xlsx3"
+  const [isLoading, setIsLoading] = useState(true)
   return (
     <div className="flex h-full w-full flex-col overflow-hidden md:flex-row">
       <Sidebar />
@@ -17,8 +18,10 @@ const Home = () => {
           </main>
 
           {/* PDF Viewer */}
-          
-            <iframe src={`https://docs.google.com/gview?url=${url}&embedded=true`} style={{display: isDocumentOpened?"block":"none" }}  className="absolute z-10 h-full w-full bg-red-200 lg:static">
+
+          {isLoading && <div>Loading...</div>
+          }
+            <iframe onLoad={()=>setIsLoading(false)}   sandbox="allow-scripts allow-same-origin" src={`https://docs.google.com/gview?url=${url}&embedded=true`} style={{display: isDocumentOpened?"block":"none",opacity:isLoading?"0":"100%" }}  className="absolute transition-all duration-1000 ease-in-out z-10 h-full w-full bg-red-200 lg:static">
             </iframe>
          
         </div>

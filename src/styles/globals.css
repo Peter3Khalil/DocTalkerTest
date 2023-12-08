@@ -138,3 +138,7 @@ pre::-webkit-scrollbar {
     display: none;
 }
 
+iframe::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
