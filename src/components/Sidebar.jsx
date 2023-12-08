@@ -14,7 +14,7 @@ const Sidebar = () => {
     <div
       className={`${
         isSidebarOpened ? "" : "-translate-x-full md:absolute"
-      } absolute z-20 flex h-full w-full transition-transform duration-500 ease-in-out md:static md:flex md:w-[270px] md:items-center`}
+      } absolute z-50 flex h-full w-full transition-transform duration-500 ease-in-out md:static md:flex md:w-[270px] md:items-center`}
     >
       <aside
         className={`relative z-10 flex h-full w-full flex-col gap-4 overflow-auto bg-foreground pt-2 text-background dark:bg-background dark:text-foreground md:shrink-0 md:flex-col`}

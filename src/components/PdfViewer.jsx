@@ -1,21 +1,25 @@
-import React from "react"
-import { useDispatch } from "react-redux"
-import { hideDocument } from "../redux/slices/isDocumentOpened"
-import { IoEyeOff } from "react-icons/io5";
-
-const PdfViewer = () => {
-  const dispatch = useDispatch()
-  const url = "https://doctalker-app.s3.amazonaws.com/Lecture_2_Search.pdf3"
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+const PdfViewer = ({url="https://doctalker-app.s3.amazonaws.com/Simple%20Gantt%20chart1.xlsx3"}) => {
+  const { isDocumentOpened } = useSelector((state) => state.isDocumentOpened)
+  const [isLoading, setIsLoading] = useState(true)
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="flex h-14 justify-end shrink-0 border-b px-3">
-        <button className="text-xl flex gap-1 items-center" onClick={()=>dispatch(hideDocument())}>
-          <IoEyeOff/>
-          <p className="text-[12px] font-bold">hide</p>
-        </button>
-      </div>
-      <iframe src={url} className="h-full w-full"></iframe>
-    </div>
+    <div
+    className="absolute left-0 top-0 z-20 h-full w-full lg:static"
+    style={{ display: isDocumentOpened ? "block" : "none" }}
+  >
+    {isLoading && <div className="w-full h-full bg-background text-foreground flex justify-center items-center">Loading...</div>}
+
+    <iframe
+      onLoad={() => setIsLoading(false)}
+      sandbox="allow-scripts allow-same-origin"
+      src={`https://docs.google.com/gview?url=${url}&embedded=true`}
+      style={{
+        opacity: isLoading ? "0" : "100%",
+      }}
+      className="h-full w-full transition-all duration-1000 ease-in-out lg:static"
+    ></iframe>
+  </div>
   )
 }
 
