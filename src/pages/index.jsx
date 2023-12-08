@@ -1,51 +1,27 @@
 import React from "react"
-import { SiAddthis } from "react-icons/si"
+import { useSelector } from "react-redux"
+import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
-import { chats } from "../../FakeData"
-import Chats from "../components/Chat/Chats"
 const Home = () => {
+  const { isDocumentOpened } = useSelector((state) => state.isDocumentOpened)
   return (
-    <>
-      <SmallScreen />
-      <LargeScreen />
-    </>
-  )
-}
+    <div className="flex h-full w-full flex-col overflow-hidden md:flex-row">
+      <Sidebar />
+      <div className="relative flex h-full w-full flex-col">
+        <Header />
+        <div className="relative flex h-full w-full">
+          <main className="flex h-full w-full flex-grow flex-col">
+            <section className="h-full w-full flex-grow overflow-auto bg-slate-400 "></section>
+            <div className="h-12 w-full shrink-0 bg-white"></div>
+          </main>
 
-const SmallScreen = () => {
-  return (
-    <div className="relative flex h-full w-full flex-col bg-background text-foreground lg:hidden">
-      {/* Small Screen */}
-      <Header />
-      <main className="h-full w-full overflow-auto">
-        <Chats chats={chats} />
-      </main>
-      <button className="fixed bottom-4 right-4 z-20 text-4xl">
-        <SiAddthis />
-      </button>
-      {/* ******************* */}
-    </div>
-  )
-}
-const LargeScreen = () => {
-  return (
-    <div className="hidden h-full w-full lg:flex">
-      <aside className="flex h-full w-72 shrink-0 flex-col border-r bg-background pb-4">
-        <div className="flex h-14 w-full shrink-0 cursor-pointer items-center border-b px-3 text-xl hover:bg-accent hover:text-accent-foreground">
-          <SiAddthis />
-          <h1 className="ml-2">New Chat</h1>
+          {/* PDF Viewer */}
+          
+            <iframe src="https://doctalker-app.s3.amazonaws.com/Lecture_2_Search.pdf3" style={{display: isDocumentOpened?"block":"none" }}  className="absolute z-10 h-full w-full bg-red-200 lg:static">
+            </iframe>
+         
         </div>
-
-        <div className="h-14 w-full shrink-0 border-b">
-          <input
-            type="text"
-            className="h-full w-full bg-transparent px-3 outline-none"
-            placeholder="Search"
-          />
-        </div>
-        <Chats chats={chats} />
-      </aside>
-      <main className="h-full w-full bg-background"></main>
+      </div>
     </div>
   )
 }

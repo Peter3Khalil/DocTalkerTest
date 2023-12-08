@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const isDocumentOpenedSlice = createSlice({
     name: "isDocumentOpened",
     initialState: {
-        isDocumentOpened:false
+        isDocumentOpened:true
     },
     reducers: {
         showDocument: (state) => {

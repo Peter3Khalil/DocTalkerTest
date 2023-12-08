@@ -39,7 +39,25 @@ module.exports = {
           foreground: "hsl(var(--popover-foreground))",
         },
       },
+      borderRadius:{
+        DEFAULT: "var(--radius)",
+      },
+      fontSize: {
+        xs: "0.666rem",
+        sm: "0.777rem",
+        md: "0.888rem",
+        lg: "1rem",
+      },
+      fontWeight: {
+        normal: "400",
+        semibold: "500",
+        bold: "700",
+        extrabold: "800",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
     },
   },
   plugins: [],
-};
+}

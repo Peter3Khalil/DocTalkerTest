@@ -1,43 +1,48 @@
-import React, { useEffect, useState } from "react"
-import { CiMenuKebab } from "react-icons/ci"
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { CiMenuFries } from "react-icons/ci"
+import { MdDarkMode, MdLightMode } from "react-icons/md"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+
+import { open } from "../redux/slices/isSidebarOpened"
+import { dark, light } from "../redux/slices/themeSlice"
+import { hideDocument, showDocument } from "../redux/slices/isDocumentOpened"
 const Header = () => {
-  const [searchOpened, setSearchOpened] = useState(false)
- 
-  useEffect(() => {
-    if (searchOpened) document.getElementById("search").focus()
-  }, [searchOpened])
+  const dispatch = useDispatch()
+  const { mode } = useSelector((state) => state.theme)
+  const { isDocumentOpened } = useSelector((state) => state.isDocumentOpened)
   return (
-    <header
-      className={`relative flex h-16 w-full shrink-0 items-center justify-between border-b bg-background px-3`}
-    >
-      <h1>DocTalker</h1>
-      <div className="flex gap-3">
-        <button
-          onClick={() => setSearchOpened(true)}
-          className={`text-lg ${searchOpened ? "hidden" : "block"}`}
-        >
-          🔍
-        </button>
-        <button className="text-lg">
-          <CiMenuKebab />
-        </button>
-      </div>
-      {searchOpened && (
-        <div className="absolute left-0 top-0 flex h-full  w-full items-center bg-background">
-          <input
-            type="text"
-            className="h-full w-full px-3 outline-none"
-            placeholder="Search"
-            id="search"
+    <header className="flex h-10 w-full shrink-0 items-center justify-between border-b px-4 dark:border-foreground/10">
+      <h1 className="hidden text-xl font-bold md:block">DocTalker</h1>
+
+      <button className="md:hidden" onClick={() => dispatch(open())}>
+        <CiMenuFries className="rotate-180 text-foreground" />
+      </button>
+      <button className="text-md font-bold md:hidden">+ New chat</button>
+      <div className="flex gap-2">
+        {mode === "light" ? (
+          <MdDarkMode
+            className="cursor-pointer text-lg text-foreground"
+            onClick={() => dispatch(dark())}
           />
-          <button
-            className="w-12 text-lg"
-            onClick={() => setSearchOpened(false)}
-          >
-            ❌
-          </button>
-        </div>
-      )}
+        ) : (
+          <MdLightMode
+            className="cursor-pointer text-lg text-foreground"
+            onClick={() => dispatch(light())}
+          />
+        )}
+        {isDocumentOpened ? (
+          <FaEyeSlash
+            className="cursor-pointer text-lg"
+            onClick={() => dispatch(hideDocument())}
+          />
+        ) : (
+          <FaEye
+            className="cursor-pointer text-lg"
+            onClick={() => dispatch(showDocument())}
+          />
+        )}
+      </div>
     </header>
   )
 }
