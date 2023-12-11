@@ -1,99 +1,92 @@
 import React, { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { CgProfile } from "react-icons/cg"
-import { VscNewFile } from "react-icons/vsc"
-import { IoIosArrowBack } from "react-icons/io"
-
-import Link from "next/link"
+import { useDispatch, useSelector } from "react-redux"
 import { close, open } from "../redux/slices/isSidebarOpened"
+import { IoIosArrowBack } from "react-icons/io"
+import { TbMinusVertical } from "react-icons/tb"
+import { RxAvatar } from "react-icons/rx"
+
 const Sidebar = () => {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHover, setIsHover] = useState(false)
   const { isSidebarOpened } = useSelector((state) => state.isSidebarOpened)
+  
   const dispatch = useDispatch()
+  const handleMouseEnter = () => {
+    setIsHover(true)
+  }
+  const handleMouseLeave = () => {
+    setIsHover(false)
+  }
+  const handleCloseSidebar = () => {
+    dispatch(close())
+  }
+  const handleOpenSidebar = () => {
+    dispatch(open())
+  }
   return (
-    <div
-      className={`${
-        isSidebarOpened ? "" : "-translate-x-full md:absolute"
-      } absolute z-50 flex h-full w-full transition-transform duration-500 ease-in-out md:static md:flex md:w-[270px] md:items-center`}
-    >
-      <aside
-        className={`relative z-10 flex h-full w-full flex-col gap-4 overflow-auto bg-foreground pt-2 text-background dark:bg-background dark:text-foreground md:shrink-0 md:flex-col`}
-      >
-        {/* Top */}
-        <div className="w-full px-2">
-          <button className="flex  w-full shrink-0 justify-center rounded p-2 text-md font-semibold subpixel-antialiased hover:bg-muted/20">
-            <div className="flex items-center gap-1">
-              <VscNewFile className="inline-block" />
-              <span>New chat</span>
-            </div>
-          </button>
-        </div>
+    <>
+      {isSidebarOpened && (
+        <aside className="flex h-full w-[270px] gap-1">
+          <div className="relative flex h-full w-full max-w-[250px] flex-col gap-3 bg-foreground pt-2 text-background">
+            {/* Top */}
+            <section className="h-12 w-full px-2">
+              <button className="w-full rounded bg-primary p-2 text-md font-medium hover:bg-primary/70">
+                +New Chat
+              </button>
+            </section>
 
-        {/* Middle */}
-        <section className="h-full w-full overflow-auto pr-2">
-          <div className="flex h-full w-full flex-col gap-1 pl-2 text-sm font-normal">
-            <h1 className="px-2 text-md font-medium text-muted/50">Chats</h1>
-            <ul>
-              {Array.from({ length: 20 }).map((_, i) => (
-                <li
-                  key={i}
-                  className="relative w-full rounded p-2 hover:bg-muted/20"
-                >
-                  <Link href={"/chat/5"}>
-                    <p className=" overflow-hidden whitespace-nowrap">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Soluta, voluptates. Perferendis cupiditate nostrum sit ut
-                      corporis quasi aspernatur! Mollitia distinctio repudiandae
-                      cupiditate velit architecto recusandae quis eveniet.
-                      Nihil, modi? Est.
-                    </p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Middle */}
+            <section className="h-full w-full overflow-auto pl-2">
+              <h3 className="px-2 text-lg font-medium text-background/50">
+                Chats
+              </h3>
+              <ul className="h-full w-full pr-2">
+                {Array.from({ length: 20 }).map((item, i) => (
+                  <li
+                    className="w-full cursor-pointer overflow-hidden text-ellipsis rounded p-2 text-sm hover:bg-accent/20"
+                    key={i}
+                  >
+                    ChatChatChatChatChatChatChatChatChatChatChatChatChat{i}
+                  </li>
+                ))}
+              </ul>
+            </section>
+            {/* Bottom */}
+            <section className=" flex w-full shrink-0 items-center p-2">
+              <button className="flex w-full items-center rounded p-2 hover:bg-accent/20">
+                <RxAvatar className="shrink-0 text-md" />
+                <p className=" w-full overflow-hidden text-ellipsis text-sm">
+                  peterkhalil@gmail.comshhs
+                </p>
+              </button>
+            </section>
+
+            {isHover && (
+              <div className="absolute left-0 top-0 z-10 h-full w-full bg-accent-foreground/70"></div>
+            )}
           </div>
-        </section>
-
-        {/* Bottom */}
-        <section className="flex  w-full shrink-0 items-center justify-center p-2 text-md font-medium ">
-          <div className="flex w-full cursor-pointer items-center rounded p-2 hover:bg-muted/20">
-            <CgProfile className="shrink-0" />
-            <span className="ml-2 overflow-hidden">
-              peterkhalilc544d54d@gmail.com
-            </span>
+          <div className="shrink-0 self-center text-2xl text-foreground/50">
+            <IoIosArrowBack
+              className={`${
+                isHover ? "block" : "hidden"
+              } cursor-pointer text-foreground`}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleCloseSidebar}
+            />
+            <TbMinusVertical
+              className="cursor-pointer "
+              style={{ display: isHover ? "none" : "block" }}
+              onMouseEnter={handleMouseEnter}
+            />
           </div>
-        </section>
-
-        {/* Appear above sidebar when hove over arrow */}
-        <div
-          className={`absolute left-0 top-0 z-0 h-full w-full bg-foreground/50 dark:bg-background/50 ${
-            isHovered ? "block" : "hidden"
-          }`}
-        ></div>
-        
-      </aside>
-      {isSidebarOpened ? (
-        <button
-          className="hidden md:block"
-          onClick={() => dispatch(close())}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          title="Close sidebar"
-        >
-          <IoIosArrowBack className="text-xl font-bold text-foreground/50 hover:text-foreground" />
-        </button>
-      ) : (
-        <button
-        className="hidden md:block"
-        onClick={() => dispatch(open())}
-        title="open sidebar"
-      >
-        <IoIosArrowBack className="rotate-180 text-xl font-bold text-foreground/50 hover:text-foreground" />
-      </button>
+        </aside>
       )}
-
-      <div onClick={()=>dispatch(close())}  className={` h-full w-32 bg-foreground/50 dark:bg-background/50 md:hidden`}></div>
-    </div>
+      {!isSidebarOpened && (
+        <IoIosArrowBack
+          onClick={handleOpenSidebar}
+          className="rotate-180 cursor-pointer self-center text-2xl text-foreground/50 hover:text-foreground"
+        />
+      )}
+    </>
   )
 }
 

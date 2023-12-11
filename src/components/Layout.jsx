@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   const mode = useSelector((state) => state.theme.mode);
   // ToDo : Make User change fonts and colors
   return (
-    <div className={mode} id="mainContainer">
+    <div className={""} id="mainContainer">
       {children}
     </div>
   );
