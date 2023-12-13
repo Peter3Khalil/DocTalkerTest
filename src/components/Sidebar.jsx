@@ -20,7 +20,7 @@ const Sidebar = (props) => {
       <div className="flex flex-col w-full h-full bg-foreground text-background dark:bg-background dark:text-foreground">
         <section className="flex items-center justify-center w-full px-2 py-3">
           <Link href={"/"} className={cn(btnStyle," w-full text-md")} title="New Chat" >
-            +New Chat
+            + New Chat
           </Link>
         </section>
 
