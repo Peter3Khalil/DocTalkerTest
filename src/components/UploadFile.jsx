@@ -109,7 +109,7 @@ const UploadFile = () => {
       )}
 
       {!isProcessing && (
-        <div className="flex h-[400px] w-full flex-col items-center justify-center gap-4 rounded border-2 border-dashed bg-muted/20 p-6 md:w-[400px]">
+        <div className="flex h-[400px] w-full flex-col items-center justify-center gap-4 rounded border-2 border-accent-foreground/20 border-dashed bg-muted/20 p-6 md:w-[400px]">
           {file ? (
             <FaFileUpload className="text-4xl leading-none text-primary" />
           ) : (

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import { BiSolidSend } from "react-icons/bi"
+import { IoMdClose } from "react-icons/io";
 
 const Form = ({value,setValue}) => {
   const textareaRef = useRef()
@@ -22,8 +23,8 @@ const Form = ({value,setValue}) => {
     textareaRef.current.focus()
   }, [])
   return (
-    <form className="min-h-[4rem] w-full shrink-0 border-t px-3 py-4">
-      <div className="inputContainer flex h-full w-full items-center rounded border">
+    <form className="min-h-[4rem] w-full shrink-0 border-t border-foreground/30 px-3 py-4">
+      <div className="inputContainer flex h-full w-full items-center rounded border ">
         <div className="flex h-full w-full pr-2">
           <textarea
             className="h-full w-full resize-none bg-inherit px-3 py-2 outline-none"
@@ -40,7 +41,7 @@ const Form = ({value,setValue}) => {
             className={`${value ? "block" : "hidden"}`}
             onClick={clear}
           >
-            ❌
+          <IoMdClose className="" />
           </button>
         </div>
 

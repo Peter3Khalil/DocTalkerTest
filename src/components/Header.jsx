@@ -6,7 +6,8 @@ import { changeTheme } from "../redux/slices/themeSlice"
 import { MdLightMode, MdDarkMode } from "react-icons/md"
 import { IoMdEye,IoMdEyeOff } from "react-icons/io";
 import { showDocument, hideDocument } from "../redux/slices/isDocumentOpened"
-const Header = ({ title = "New Chat" }) => {
+import cn from "../utils/cn"
+const Header = ({ title = "New Chat",toggleDocument=true }) => {
   const isSidebarOpened = useSelector(
     (state) => state.isSidebarOpened.isSidebarOpened,
   )
@@ -30,8 +31,8 @@ const Header = ({ title = "New Chat" }) => {
     dispatch(hideDocument())
   }
   return (
-    <header className="flex items-center justify-between w-full px-4 border-b h-14 shrink-0 bg-background text-foreground dark:border-foreground/30">
-      <div className="flex w-[70%] items-center gap-2">
+    <header className="flex items-center justify-between w-full px-4 border-b shrink-0 h-14 bg-accent text-accent-foreground dark:border-foreground/30 ">
+      <div className="flex items-center flex-grow gap-2">
         <button
           type="button"
           className="text-2xl text-foreground/80"
@@ -40,16 +41,17 @@ const Header = ({ title = "New Chat" }) => {
         >
           <HiMenuAlt1 />
         </button>
-        <div className="relative w-[80%]">
-          <h1
-            className="overflow-hidden text-xl font-semibold text-clip whitespace-nowrap"
+        <div className="relative w-full">
+          <p
+            className="w-[70%] text-xl font-semibold line-clamp-1 text-clip"
             title={title}
           >
             {title}
-          </h1>
-          <div className="absolute top-0 bottom-0 right-0 w-8 group-hover:from-token-surface-primary bg-gradient-to-l from-background to-transparent"></div>
+          </p>
+          <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-accent to-transparent"></div>
         </div>
       </div>
+      
       <div className="flex items-start gap-2">
         <button
           type="button"
@@ -61,13 +63,16 @@ const Header = ({ title = "New Chat" }) => {
         </button>
         <button
           type="button"
-          className="hidden p-2 text-xl shrink-0 text-foreground/80 lg:block"
+          className={cn("hidden p-2 text-xl shrink-0 text-foreground/80 lg:block",{
+            "lg:hidden":!toggleDocument
+          })}
           title={isDocumentOpened?"Hide Document":"View Document"}
           onClick={isDocumentOpened ? hide : show}
         >
           {isDocumentOpened ? <IoMdEyeOff /> : <IoMdEye />}
         </button>
       </div>
+      
     </header>
   )
 }

@@ -113,9 +113,7 @@ body,
   background-color: hsl(var(--muted-foreground) / 0.8);
 }
 
-.focus {
-  border: 1px solid hsl(var(--primary));
-}
+
 
 pre::-webkit-scrollbar {
   display: none;
@@ -126,27 +124,19 @@ iframe::-webkit-scrollbar {
   width: 0;
 }
 
-.scrollContainer {
-  scroll-snap-type: x mandatory;
-}
-.scrollContainer > * {
-  scroll-snap-align: start;
-}
-.scrollContainer::-webkit-scrollbar {
-  display: none;
-  width: 0;
-}
-.custom-shadow {
-  box-shadow: inset -15px 0px 10px -10px hsl(var(--foreground) / 0.2);
-}
+
 
 .visible {
- background-color: hsl(var(--accent));
- color: hsl(var(--accent-foreground));
+ background-color: hsl(var(--background));
+ color: hsl(var(--foreground));
  border-bottom:3px solid hsl(var(--primary));
  transition: all 0.3s ease ;
  -webkit-transition: all 0.3s ease ;
  -moz-transition: all 0.3s ease ;
  -ms-transition: all 0.3s ease ;
  -o-transition: all 0.3s ease ;
+}
+
+#main::-webkit-scrollbar{
+  display: none;
 }
