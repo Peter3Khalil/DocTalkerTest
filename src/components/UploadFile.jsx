@@ -26,6 +26,7 @@ const UploadFile = () => {
     })
 
   const handleFileChange = (e) => {
+    if (!e.target.files[0]) return
     setFile(e.target.files[0])
   }
 
@@ -85,7 +86,7 @@ const UploadFile = () => {
     }
   }
   return (
-    <main className="flex h-full w-full items-center justify-center px-4">
+    <main className="flex h-full w-full items-center justify-center px-4 relative">
       <ToastContainer
         position="top-right"
         autoClose={1000}
@@ -98,58 +99,37 @@ const UploadFile = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />
-
-      {isProcessing && (
+      {isProcessing ? (
         <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-muted/50">
-          <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded border bg-background">
+          <div className="flex w-full h-full  md:h-[400px] md:w-[400px] flex-col items-center justify-center rounded border bg-background">
             <IoIosSettings className="animate-spin text-4xl leading-none text-primary" />
             <p className="text-xl font-bold text-foreground">Processing</p>
           </div>
         </div>
-      )}
-
-      {!isProcessing && (
-        <div className="flex h-[400px] w-full flex-col items-center justify-center gap-4 rounded border-2 border-dashed border-accent-foreground/20 bg-muted/20 p-6 md:w-[400px]">
+      ) : (
+        <div className="flex h-[400px] w-full flex-col items-center justify-center gap-4 rounded border-2 border-dashed border-accent-foreground/20  p-6 md:w-[400px]">
           {file ? (
             <FaFileUpload className="text-4xl leading-none text-primary" />
           ) : (
             <FaCloudUploadAlt className="text-4xl leading-none text-primary" />
           )}
-          <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-center text-xl font-bold text-foreground">
+          <p className="line-clamp-1 break-all overflow-hidden text-ellipsis  text-center text-xl font-bold text-foreground">
             {file ? file.name : "Choose a file to chat with"}
           </p>
-          <form className="flex items-center gap-2" onSubmit={handleOnsubmit}>
-            <input
-              id="file"
-              type="file"
-              accept=".pdf,.txt,.docx"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            {file && (
-              <button type="submit" className={btnStyle}>
-                Upload
-              </button>
-            )}
-            <label
-              htmlFor="file"
-              className={cn(btnStyle, {
-                "bg-background text-foreground/50 hover:bg-muted hover:text-muted-foreground":
-                  file,
-              })}
-            >
-              {file ? "Change" : "Choose a file"}
-            </label>
-          </form>
+
+          <UploadForm
+            onSubmit={handleOnsubmit}
+            onChange={handleFileChange}
+            file={file}
+          />
+
           <div className="flex items-center gap-1">
             <span className="text-sm text-foreground/70">Supported file:</span>
-            <ul className="flex items-center gap-2 text-[10px] ">
+            <ul className="flex items-center gap-2 text-[10px]">
               {supportedFileTypes.map((type) => (
                 <li
                   key={type}
-                  className="flex items-center justify-center rounded bg-muted px-2 py-1 uppercase"
+                  className="flex items-center justify-center leading-none rounded  px-2 py-1 uppercase "
                 >
                   {type}
                 </li>
@@ -162,4 +142,33 @@ const UploadFile = () => {
   )
 }
 
+const UploadForm = ({ onSubmit, onChange, file }) => {
+  return (
+    <form className="flex items-center gap-2" onSubmit={onSubmit}>
+      <input
+        id="file"
+        type="file"
+        accept=".pdf,.txt,.docx"
+        className="hidden"
+        onChange={onChange}
+      />
+
+      {file && (
+        <button type="submit" className={btnStyle}>
+          Upload
+        </button>
+      )}
+
+      <label
+        htmlFor="file"
+        className={cn(btnStyle, {
+          "bg-background text-foreground/50 hover:bg-muted hover:text-muted-foreground":
+            file,
+        })}
+      >
+        {file ? "Change" : "Choose a file"}
+      </label>
+    </form>
+  )
+}
 export default UploadFile
