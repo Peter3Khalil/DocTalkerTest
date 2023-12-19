@@ -5,16 +5,20 @@ import { CgProfile } from "react-icons/cg"
 import { RiMenu2Fill } from "react-icons/ri"
 import { MdLightMode,MdDarkMode } from "react-icons/md";
 import { toggleTheme } from "../redux/slices/theme"
+import Logo from "./shared/Logo"
 const Header = () => {
   const dispatch = useDispatch()
   console.log("Header")
   return (
-    <header className="sticky top-0 z-[1] flex h-14 w-full shrink-0 items-center justify-between bg-accent/95 px-4">
+    <header className="sticky top-0 z-[1] flex h-14 w-full shrink-0 items-center justify-between border-b dark:border-foreground/20 px-4">
       <div className="flex items-center gap-2">
         <button className="text-2xl" onClick={() => dispatch(toggleSidebar())}>
           <RiMenu2Fill />
         </button>
-        <h1 className="text-xl font-bold">DocTalker</h1>
+        <h1 className="text-xl">
+
+        <Logo/>
+        </h1>
       </div>
       <div className="relative flex items-center gap-3">
         <ThemeSwitcher />
