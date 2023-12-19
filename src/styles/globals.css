@@ -86,16 +86,8 @@ body,
   width: 0;
 }
 
-@media screen and (max-width: 640px) {
-  html {
-    font-size: 16px;
-  }
-}
 
-/* Style the container that will have the scrollbar */
 
-/* Style the scrollbar track */
-/* For WebKit browsers like Chrome and Safari */
 ::-webkit-scrollbar {
   width: 7px;
 }
@@ -111,6 +103,10 @@ body,
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: hsl(var(--muted-foreground) / 0.8);
+}
+
+#chatList::-webkit-scrollbar-track {
+  background: black;
 }
 
 pre::-webkit-scrollbar {
@@ -133,13 +129,6 @@ iframe::-webkit-scrollbar {
   -o-transition: all 0.3s ease;
 }
 
-#main::-webkit-scrollbar {
-  display: none;
-}
-
-.chats::-webkit-scrollbar {
-  display: none;
-}
 
 
 
