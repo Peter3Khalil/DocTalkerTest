@@ -6,7 +6,7 @@ import Link from "next/link"
 import Button from "./shared/Button"
 import { chats } from "../../public/dummyData"
 import ChatList from "./chat/ChatList"
-import { CgProfile } from "react-icons/cg"
+import { CgProfile } from "./shared/Icons"
 import Modal from "./Modal"
 import { openModal } from "../redux/slices/modal"
 const Sidebar = () => {

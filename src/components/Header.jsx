@@ -1,9 +1,7 @@
 import React, { memo } from "react"
 import { useSelector,useDispatch } from "react-redux"
+import { CgProfile,MdLightMode,MdDarkMode,RiMenu2Fill } from "./shared/Icons"
 import { toggleSidebar } from "../redux/slices/sidebar"
-import { CgProfile } from "react-icons/cg"
-import { RiMenu2Fill } from "react-icons/ri"
-import { MdLightMode,MdDarkMode } from "react-icons/md";
 import { toggleTheme } from "../redux/slices/theme"
 import Logo from "./shared/Logo"
 const Header = () => {
