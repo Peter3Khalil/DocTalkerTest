@@ -1,14 +1,14 @@
 import React, { memo, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { closeSidebar } from "../redux/slices/sidebar"
-import { cn } from "../utils/helperFunctions"
+import { closeSidebar } from "../../redux/slices/sidebar"
+import { cn } from "../../utils/helperFunctions"
 import Link from "next/link"
-import Button from "./shared/Button"
-import { chats } from "../../public/dummyData"
-import ChatList from "./chat/ChatList"
-import { CgProfile } from "./shared/Icons"
-import Modal from "./Modal"
-import { openModal } from "../redux/slices/modal"
+import Button from "../shared/Button"
+import { chats } from "../../../public/dummyData"
+import ChatList from "./ChatList"
+import { CgProfile } from "../shared/Icons"
+import Modal from "../Modal"
+import { openModal } from "../../redux/slices/modal"
 const Sidebar = () => {
   const isOpen = useSelector((state) => state.sidebar.isOpen)
   const dispatch = useDispatch()

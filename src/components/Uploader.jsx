@@ -3,6 +3,7 @@ import { FaCloudUploadAlt, FaFilePdf, MdDeleteForever } from "./shared/Icons"
 import Button from "./shared/Button"
 import { cn } from "../utils/helperFunctions"
 
+//TODO: Send file to server
 //TODO: Check if file handwritten => if yes then show a message that "Cannot processing this file"
 const Uploader = () => {
   const [file, setFile] = useState(null)
@@ -43,11 +44,12 @@ const Uploader = () => {
     }
     return true
   }
+
   useEffect(() => {
     if (error.sizeError || error.typeError) {
       setFile(null)
     }
-    console.log(error)
+    
   }, [error])
 
   return (
@@ -55,6 +57,7 @@ const Uploader = () => {
       <input
         type="file"
         className="hidden"
+        accept="application/pdf"
         onChange={handleOnchange}
         id="input"
       />
@@ -103,7 +106,7 @@ const Uploader = () => {
       </div>
 
       {/* File */}
-     {file &&<File file={file} setFile={setFile}/>}
+     {file &&<FileComponent file={file} setFile={setFile}/>}
       <Button
         disabled={!file}
         className={"disabled:bg-muted disabled:text-muted-foreground"}
@@ -114,10 +117,10 @@ const Uploader = () => {
   )
 }
 const Line = () => {
-  return <div className="h-[1px] w-full rounded bg-accent-foreground/30"></div>
+  return <div className="h-[1px] w-full rounded bg-accent-foreground/20"></div>
 }
 
-const File = ({ file,setFile }) => {
+const FileComponent = ({ file,setFile }) => {
   return (
     <div className={cn("flex transition-all duration-300 ease-in-out w-full items-center justify-between rounded bg-accent p-2 text-sm")}>
       <div className="flex items-center gap-1">
@@ -136,4 +139,5 @@ const File = ({ file,setFile }) => {
     </div>
   )
 }
+
 export default Uploader

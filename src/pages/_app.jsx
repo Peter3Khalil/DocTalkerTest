@@ -1,3 +1,4 @@
+
 import { Provider } from "react-redux"
 import Layout from "../components/Layouts/Layout"
 import "../styles/globals.css"
