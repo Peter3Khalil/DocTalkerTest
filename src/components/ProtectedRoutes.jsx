@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
 
 const ProtectedRoutes = ({children}) => {
-    let isAuth = null;
+  const [isAuth, setIsAuth] = useState(false)
+    const router = useRouter()
+
     useEffect(() => {
-        isAuth = localStorage.getItem('token')
-        if (!isAuth) {
-            window.location.href = '/auth/login'
-        }
+      const token = localStorage.getItem("token")
+      if(!token){
+        router.push("/auth/login")
+        return
+      }
+      setIsAuth(true)
+
     }, [])
     
   return (

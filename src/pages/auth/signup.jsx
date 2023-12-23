@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useCallback, useRef, useState } from "react"
 import Logo from "../../components/shared/Logo"
 import Button from "../../components/shared/Button"
 import Link from "next/link"
@@ -10,33 +10,37 @@ import {
 import { cn } from "../../utils/helperFunctions"
 import { signup } from "../../utils/apis"
 import { useRouter } from "next/router"
+import formFields from "../../../public/formFields"
+import InputField, { PasswordField } from "../../components/InputField"
+import { useForm } from "react-hook-form"
+import { SignupSchema } from "../../utils/validationSchema"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { DevTool } from "@hookform/devtools"
 
 //TODO: Validate form
 //TODO: Check loading state
 
 const Signup = () => {
-  const formRef = useRef(null)
-  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const [errorMsg, setErrorMsg] = useState(null)
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const [isLoading, setIsLoading] = useState(false)
+  const [serverError, setServerError] = useState(null)
+  const { register, handleSubmit, formState, control } = useForm({
+    resolver: yupResolver(SignupSchema),
+    mode: "onTouched",
+  })
+  const { errors, isValid } = formState
+  const onSubmit = (data) => {
     setIsLoading(true)
-    const data = Object.fromEntries(new FormData(formRef.current))
-    signup(data)
-      .then((res) => {
-        if (res.message) {
-          setErrorMsg(res.message)
-          setIsLoading(false)
-          return
-        }
-        setIsLoading(false)
-        router.push("/auth/login")
-      })
-      .catch((err) => {
-        setIsLoading(false)
-        setErrorMsg(err.response.data.message)
-      })
+    signup(data).then((res) => {
+      setIsLoading(false)
+      if(res.message){
+        setServerError(res.message)
+        return
+      }
+      setServerError(null)
+      localStorage.setItem("token", res.token)
+      router.push("/")
+    })
   }
   return (
     <main className="flex h-full w-full items-center justify-center px-6">
@@ -47,120 +51,58 @@ const Signup = () => {
           </h1>
           <p className="text-gray-600">Please signup to continue</p>
         </div>
-
+        {
+          !isLoading&&
+        <p className="text-sm text-destructive">{serverError}</p>
+        }
         <form
           className="flex w-full flex-col items-center gap-4"
-          onSubmit={onSubmit}
-          ref={formRef}
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
         >
-          <InputField
-            name={"firstName"}
-            text="First Name"
-            id="fname"
-            placeholder="FirstName"
-          />
-          <InputField
-            name="lastName"
-            text="Last Name"
-            id="lname"
-            placeholder="Last Name"
-          />
-          <InputField
-            type="email"
-            text="Email"
-            id="email"
-            placeholder="example@gmail.com"
-            name="email"
-            errorMsg={errorMsg}
-          />
-          <PasswordField />
-          {isLoading ? (
-            <Button
-              className={"cursor-not-allowed bg-muted text-muted-foreground"}
-            >
-              <AiOutlineLoading3Quarters className="animate-spin" />
-            </Button>
-          ) : (
-            <Button type="submit">Signup</Button>
-          )}
+          {formFields.map((field) => {
+            if (field.type === "password")
+              return (
+                <PasswordField
+                  register={register}
+                  label={field.label}
+                  name={field.name}
+                  errorMsg={errors[field.name]?.message}
+                  id={field.id}
+                  placeholder={field.placeholder}
+                />
+              )
+            return (
+              <InputField
+                register={register}
+                label={field.label}
+                name={field.name}
+                errorMsg={errors[field.name]?.message }
+                id={field.id}
+                placeholder={field.placeholder}
+              />
+            )
+          })}
+          <Button
+            type="submit"
+            className={cn("w-full", {
+              "cursor-not-allowed bg-muted text-muted-foreground hover:bg-muted hover:text-muted-foreground":
+                !isValid || isLoading,
+            })}
+            disabled={!isValid}
+          >
+           {isLoading?<AiOutlineLoading3Quarters className="animate-spin text-2xl"/>:"Signup"} 
+          </Button>
         </form>
+
         <Link href={"/auth/login"}>
-            <p className="text-primary text-md">Already have an account? <span className="font-bold">Login</span></p>
+          <p className="text-md text-primary">
+            Already have an account? <span className="font-bold">Login</span>
+          </p>
         </Link>
       </div>
     </main>
   )
 }
-const InputField = ({
-  type = "text",
-  text,
-  id,
-  placeholder,
-  name,
-  required = true,
-  children,
-  onChange,
-  errorMsg,
-  ...props
-}) => {
-  return (
-    <div className="flex w-full flex-col items-start gap-1">
-      <label
-        htmlFor={id}
-        className="block w-full cursor-pointer text-md capitalize text-foreground/70"
-      >
-        {text}
-      </label>
-      <div className="relative flex w-full flex-col">
-        <input
-          type={type}
-          id={id}
-          placeholder={placeholder}
-          className={cn(
-            "w-full rounded border p-2  outline-none focus:ring-1 focus:ring-primary",
-            {
-              "pr-10": type == "password",
-            },
-          )}
-          required={required}
-          {...props}
-          name={name}
-          onChange={onChange}
-        />
-        {errorMsg && (
-          <p className="mt-1 text-sm font-semibold text-destructive">
-            {errorMsg}
-          </p>
-        )}
-        {children}
-      </div>
-    </div>
-  )
-}
 
-const PasswordField = ({ onChange }) => {
-  const [showPassword, setShowPassword] = useState(false)
-  const togglePassword = () => {
-    setShowPassword((prev) => !prev)
-  }
-  return (
-    <InputField
-      type={showPassword ? "text" : "password"}
-      text="Password"
-      id="password"
-      placeholder="Password"
-      name="password"
-      onChange={onChange}
-    >
-      <button
-        title={showPassword ? "Hide" : "Show"}
-        type="button"
-        onClick={togglePassword}
-        className="absolute right-2 top-[50%] translate-y-[-50%] text-foreground/70 hover:text-foreground/90"
-      >
-        {showPassword ? <IoEyeOff /> : <IoEyeSharp />}
-      </button>
-    </InputField>
-  )
-}
 export default Signup
